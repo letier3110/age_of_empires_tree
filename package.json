@@ -1,17 +1,17 @@
 {
-  "name": "extension-hello-world",
+  "name": "age-of-empires-tree",
   "version": "1.0.0",
-  "description": "Simple Hello World Twitch Extension",
+  "description": "Age of Empires: nations guide twitch extension",
   "main": "index.js",
   "scripts": {
     "cert": "node bin/generate_cert.js server",
-    "start": "node services/backend"
+    "start": "node services/backend -c <client_id> -s <secret> -o <owner_id>"
   },
   "keywords": [
     "twitch",
     "extension"
   ],
-  "author": "Emily Rose <amorelandra@twitch.tv>",
+  "author": "Toxcik310 <letier3110@gmail.com>",
   "license": "Apache-2.0",
   "dependencies": {
     "boom": "^7.2.0",

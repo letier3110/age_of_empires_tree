@@ -2,6 +2,16 @@
 <html>
 <head>
     <title>Viewer Page</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&amp;display=swap">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+        margin: 0;
+        display: flex;
+        background: url("assets/bg_aoe2_hd_paper.jpg") repeat;
+        font-size: 10pt;
+        }
+    </style>
 </head>
 <body style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
     <div id="app" class="full-height"></div>
@@ -11,16 +21,28 @@
       to external libraries. -->
     <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
     <script src="viewer.js" type="text/javascript"></script>
-    <h2>Hello, World!</h2>
-    <p>Would you care to cycle a color?</p>
-    <div>
-        <input type="button" id="cycle" disabled="disabled" value="Yes, I would" />
-    </div>
-    <div style="float: left; position: relative; left: 50%">
-        <div id="color" style="border-radius: 50px; transition: background-color 0.5s ease; margin-top: 30px; width: 100px; height: 100px; background-color: #6441A4; float: left; position: relative; left: -50%">
+    <div id="civinfo">
+        <div id="civtitle">
+            <select id="civselect"><option value="Aztecs">Ацтеки</option><option value="Berbers">Берберы</option><option value="Britons">Британцы</option><option value="Bulgarians">Болгары</option><option value="Burgundians">Бургундцы</option><option value="Burmese">Бирманцы</option><option value="Byzantines">Византийцы</option><option value="Celts">Кельты</option><option value="Chinese">Китайцы</option><option value="Cumans">Половцы</option><option value="Ethiopians">Эфиопы</option><option value="Franks">Франки</option><option value="Goths">Готы</option><option value="Huns">Гунны</option><option value="Incas">Инки</option><option value="Indians">Индийцы</option><option value="Italians">Итальянцы</option><option value="Japanese">Японцы</option><option value="Khmer">Кхмеры</option><option value="Koreans">Корейцы</option><option value="Lithuanians">Литовцы</option><option value="Magyars">Венгры</option><option value="Malay">Малайцы</option><option value="Malians">Малийцы</option><option value="Mayans">Майя</option><option value="Mongols">Монголы</option><option value="Persians">Персы</option><option value="Portuguese">Португальцы</option><option value="Saracens">Сарацины</option><option value="Sicilians">Сицилийцы</option><option value="Slavs">Славяне</option><option value="Spanish">Испанцы</option><option value="Tatars">Татары</option><option value="Teutons">Тевтоны</option><option value="Turks">Турки</option><option value="Vietnamese">Вьетнамцы</option><option value="Vikings">Викинги</option></select>
+            <img id="civlogo" height="81" width="81" data-transparent="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" src="./assets/aztecs.png">
         </div>
+        <p id="civtext">Цивилизация пехоты и монахов <br>
+        <br>
+        • Поселенцы переносят на 3&nbsp;ед. ресурсов больше <br>
+        • Военные юниты создаются на 11% быстрее <br>
+        • Каждая монастырская технология добавляет монахам +5 ед. здоровья <br>
+        • В начале +50&nbsp;ед. золота<br>
+        <br>
+        <b>Уникальный юнит:</b> <br>
+        воин-ягуар (пехота) <br>
+        <br>
+        <b>Уникальные технологии:</b> <br>
+        • атлатль (+1 к атаке и радиусу атаки застрельщиков) <br>
+        • захватнические войны (+4 к атаке пехоты); <br>
+        <br>
+        <b>Командный бонус:</b> <br>
+        реликвии приносят на 33% больше золота</p>
     </div>
-    <div id="list">
-    </div>
+    <script src="./main.js" type="text/javascript"></script>
 </body>
 </html>

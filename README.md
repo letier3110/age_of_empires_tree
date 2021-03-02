@@ -1,44 +1,77 @@
+# Project Readme
+
+Твитч-экстеншн для отображения особенности наций в AOE2:DE
+
+Способ запуска:
+
+1. Открыть video_component.html в браузере
+2. Готово.
+
+Способ билда в твитче:
+
+1. Завернуть весь контент папки public в zip архив
+2. Залить в файлы в панели управления экстеншеном и выполнить необходимые требования твитча для релиза
+3. Готово.
+
+Способ проверки сборки в твитче:
+
+1. Сделать билд в твтиче, остановится на статусе "локального тестирования" (№2)
+2. Запустить стрим с пользователя твитча из вайтлиста
+3. Добавить и активировать экстеншн пользователю твитча из вайтлиста в "видеостудии"
+4. Готово.
+
+# Twitch Readme
+
 # Extensions-Hello-World
+
 The Simplest Extension in the (Hello) World.
 
 ## Motivation
-The Hello World sample is designed to get you started building a Twitch Extension quickly. It contains all the key parts of a functioning Extension and can be immediately run in the [Developer Rig](https://github.com/twitchdev/developer-rig).  For a fast guide to get started, visit the Developer Rig documentation.
+
+The Hello World sample is designed to get you started building a Twitch Extension quickly. It contains all the key parts of a functioning Extension and can be immediately run in the [Developer Rig](https://github.com/twitchdev/developer-rig). For a fast guide to get started, visit the Developer Rig documentation.
 
 ## What's in the Sample
+
 The Hello World Extension provides a simple scenario that demonstrates the end-to-end flow of an Extension. On the frontend, a user clicks a button that can change the color of a circle. Instead of changing the CSS locally, it calls its Extension Backend Service (EBS) to update the color of the circle. That message is then sent via Twitch PubSub to update all clients listening to the PubSub topic.
 
-__The sample is broken into two main components:__
+**The sample is broken into two main components:**
 
 1. The Frontend of the Extension, comprised of HTML files for the different extension views and corresponding Javascript files and CSS. The frontend has the following functionality:
-    * A button and script that makes a POST call to the EBS to request a color change for the circle
-    * A GET call when the Extension is initialized to change the circle to the current color stored on the EBS
-    * A listener to Twitch PubSub, that receives color change updates and then updates the circle color
+   - A button and script that makes a POST call to the EBS to request a color change for the circle
+   - A GET call when the Extension is initialized to change the circle to the current color stored on the EBS
+   - A listener to Twitch PubSub, that receives color change updates and then updates the circle color
 2. A lightweight EBS that performs the following functionality:
-    * Spins up a simple HTTPS server with a POST handler for changing color
-    * Validates an Extension JWT
-    * Sends a new color message via Twitch PubSub for a specific channel
+   - Spins up a simple HTTPS server with a POST handler for changing color
+   - Validates an Extension JWT
+   - Sends a new color message via Twitch PubSub for a specific channel
 
 ## Using the Sample
-The recommended path to using this sample is with the [Developer Rig](https://github.com/twitchdev/developer-rig).  Use the Developer Rig's `extension-init` command to clone this repository.
+
+The recommended path to using this sample is with the [Developer Rig](https://github.com/twitchdev/developer-rig). Use the Developer Rig's `extension-init` command to clone this repository.
 
 The Developer Rig is able to host the frontend Hello World files, but the EBS must be run and hosted separately.
 
 ### Setting Up Your Backend Certificates
+
 Twitch Extensions require SSL (TLS).
 
-If you're using the Developer Rig and used it to create this extension, it will have already configured the certificates.  Otherwise, you'll need to set up a certificate for local development.  This will generate a new certificate (`server.crt` and `server.key`) for you and place it in the `conf/` directory. This certificate is different from the one used for the Developer Rig.
+If you're using the Developer Rig and used it to create this extension, it will have already configured the certificates. Otherwise, you'll need to set up a certificate for local development. This will generate a new certificate (`server.crt` and `server.key`) for you and place it in the `conf/` directory. This certificate is different from the one used for the Developer Rig.
 
 #### On MacOS
+
 Navigate to the root of the Hello World extension folder and run `npm install` and then `npm run cert`
 
 #### On Windows
+
 Run the following commands to generate the necessary certificates for your Hello World backend
+
 1. `node scripts/ssl.js`
 2. `mkdir ../my-extension/conf`
 3. `mv ssl/selfsigned.crt ../my-extension/conf/server.crt`
 4. `mv ssl/selfsigned.key ../my-extension/conf/server.key`
 
 ### Running Hello World
+
 If you're using the Developer Rig, it has buttons in its UI to perform the following actions.
 
 To run the EBS, run `node services/backend`, with the following command line arguments: `-c <client id>`, `-s <secret>`, `-o <owner id>`.

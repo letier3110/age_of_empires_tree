@@ -208,7 +208,8 @@ hr:before {
 }
 
 .locale-switcher {
-  position: relative;
+  position: absolute;
+  left: 0px;
   display: inline-block;
 }
 

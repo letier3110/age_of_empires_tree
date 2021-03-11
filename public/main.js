@@ -64,7 +64,16 @@ const locales = {
   vi: 'Tiếng Việt',
   br: 'Português (Brasil)',
 }
-const defaultLocale = 'ru'
+
+var tempLocale = navigator.language || navigator.userLanguage
+
+var w = tempLocale.indexOf('-') > 0 && tempLocale.split('-').length > 0 ? tempLocale.split('-')[0] : tempLocale
+if (w === 'uk') w = 'ru'
+if (!locales[w]) w == Object.keys(locales)[0]
+
+const defaultLocale = w
+
+console.log(defaultLocale, navigator.language, navigator.userLanguage)
 
 function loadLocale(localeCode) {
   if (!Object.keys(locales).includes(localeCode)) {

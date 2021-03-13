@@ -804,6 +804,17 @@ function main() {
 
   let doVerticalScroll = true
   const techtreeElement = document.getElementById('techtree')
+  techtreeElement.addEventListener(
+    'touchmove',
+    function (event) {
+      var touch = event.targetTouches[0]
+
+      // Place element where the finger is
+      techtreeElement.scrollLeft = touch.pageX - 25 + 'px'
+      event.preventDefault()
+    },
+    false
+  )
   techtreeElement.addEventListener('wheel', function (e) {
     if (e.deltaX !== 0) {
       doVerticalScroll = false

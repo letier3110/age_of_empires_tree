@@ -372,7 +372,7 @@ class Tree {
       imperial_1_y: 0,
       imperial_2_y: 0,
     }
-    this.height = Math.max(window.innerHeight - 80, 100)
+    this.height = Math.max(window.innerHeight - 80, 1200)
     this.width = 0
     this.padding = 20
     this.element_height = 0

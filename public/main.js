@@ -804,17 +804,39 @@ function main() {
 
   let doVerticalScroll = true
   const techtreeElement = document.getElementById('techtree')
-  techtreeElement.addEventListener(
-    'touchmove',
-    function (event) {
-      var touch = event.targetTouches[0]
 
-      // Place element where the finger is
-      techtreeElement.scrollLeft = touch.pageX - 25 + 'px'
-      event.preventDefault()
-    },
-    false
-  )
+  function touchStart(event) {
+    start.x = event.touches[0].pageX
+    start.y = event.touches[0].pageY
+  }
+
+  function touchMove(event) {
+    offset = {}
+
+    offset.x = start.x - event.touches[0].pageX
+    offset.y = start.y - event.touches[0].pageY
+
+    // return offset
+    techtreeElement.scrollLeft += offset.x
+
+    // if (offset.x) {
+    //   techtreeElement.scrollLeft += 10
+    // } else if (offset.x < 0) {
+    //   techtreeElement.scrollLeft -= 50
+    // }
+  }
+
+  // techtreeElement.addEventListener('touchmove', function (event) {
+  //   var touch = event.targetTouches[0]
+
+  //   // Place element where the finger is
+  //   // console.log(event.deltaX)
+  //   techtreeElement.scrollLeft = touch.pageX - 25 + 'px'
+  // })
+  techtreeElement.addEventListener('touchstart', touchStart, false)
+  techtreeElement.addEventListener('touchmove', touchMove, false)
+
+  var start = { x: 0, y: 0 }
   techtreeElement.addEventListener('wheel', function (e) {
     if (e.deltaX !== 0) {
       doVerticalScroll = false

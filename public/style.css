@@ -20,12 +20,12 @@ tspan {
 body {
   margin: 0;
   display: flex;
-  background: url('img/Backgrounds/bg_aoe2_hd_paper.jpg') repeat;
+  background: url('./assets/bg_aoe2_hd_paper.jpg') repeat;
   font-size: 10pt;
 }
 
 #techtree {
-  background: url('img/Backgrounds/bg_aoe2_hd_paper.jpg') repeat local;
+  background: url('./assets/bg_aoe2_hd_paper.jpg') repeat local;
 }
 
 a,
@@ -129,14 +129,13 @@ a:active {
   border-left: 6px solid #4d3617;
   flex: 1 0 auto;
   position: relative;
-  width: calc(100vw - 22rem - 20px);
+  width: calc(100vw - 64px);
   overflow-x: scroll;
 }
 
 #metainfo {
   border-right: 6px solid #4d3617;
   border-right: none;
-  width: 20rem;
   flex: 0 0 auto;
   display: flex;
   flex-direction: column;
@@ -167,10 +166,9 @@ a:active {
 }
 
 #civinfo {
-  margin: 32px;
+  margin: 16px;
   flex: 1 0 auto;
   font-size: 12pt;
-  max-width: 90%;
   max-height: 100%;
   overflow-y: scroll;
 }

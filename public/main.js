@@ -1,5 +1,4 @@
 let tree
-let data = {}
 let civs = {}
 let connections
 let parentConnections
@@ -101,128 +100,128 @@ function displayData() {
   document.getElementById('civselect').innerHTML = ''
   // document.getElementById('key__table').innerHTML = ''
 
-  // tree = getDefaultTree()
-  // connections = getConnections()
-  // parentConnections = new Map(connections.map(([parent, child]) => [child, parent]))
-  // connectionpoints = getConnectionPoints(tree)
+  tree = getDefaultTree()
+  connections = getConnections()
+  parentConnections = new Map(connections.map(([parent, child]) => [child, parent]))
+  connectionpoints = getConnectionPoints(tree)
   fillCivSelector()
 
-  // const draw = SVG('techtree')
-  //   .id('root')
-  //   .size(tree.width, tree.height)
-  //   .click((e) => {
-  //     if (e.target.id === 'root') {
-  //       hideHelp()
-  //     }
-  //   })
+  const draw = SVG('techtree')
+    .id('root')
+    .size(tree.width, tree.height)
+    .click((e) => {
+      if (e.target.id === 'root') {
+        hideHelp()
+      }
+    })
 
-  // document.getElementById('techtree').onclick = (e) => {
-  //   if (e.target.id === 'techtree') {
-  //     hideHelp()
-  //   }
-  // }
+  document.getElementById('techtree').onclick = (e) => {
+    if (e.target.id === 'techtree') {
+      hideHelp()
+    }
+  }
 
   // Draw Age Row Highlighters
-  // let row_height = tree.height / 4
-  // draw.rect(tree.width, row_height).attr({ fill: '#4d3617', opacity: 0.3 }).click(hideHelp)
-  // draw
-  //   .rect(tree.width, row_height)
-  //   .attr({ fill: '#4d3617', opacity: 0.3 })
-  //   .click(hideHelp)
-  //   .y(row_height * 2)
+  let row_height = tree.height / 4
+  draw.rect(tree.width, row_height).attr({ fill: '#4d3617', opacity: 0.3 }).click(hideHelp)
+  draw
+    .rect(tree.width, row_height)
+    .attr({ fill: '#4d3617', opacity: 0.3 })
+    .click(hideHelp)
+    .y(row_height * 2)
 
-  // // Add Age Icons
-  // let icon_height = Math.min(row_height / 2, 112)
-  // let icon_width = 112
-  // let vertical_spacing = (row_height - icon_height) / 2 - 10
-  // let margin_left = 20
-  // let image_urls = ['dark_age_de.png', 'feudal_age_de.png', 'castle_age_de.png', 'imperial_age_de.png']
-  // let age_names = [
-  //   data.strings[data.age_names['Dark Age']],
-  //   data.strings[data.age_names['Feudal Age']],
-  //   data.strings[data.age_names['Castle Age']],
-  //   data.strings[data.age_names['Imperial Age']],
-  // ]
-  // for (let i = 0; i < image_urls.length; i++) {
-  //   let age_image_group = draw.group().click(hideHelp)
-  //   let age_image = age_image_group
-  //     .image('img/Ages/' + image_urls[i], icon_width, icon_height)
-  //     .y(row_height * i + vertical_spacing)
-  //     .x(margin_left)
-  //   age_image_group
-  //     .text(age_names[i])
-  //     .font({ size: 16, weight: 'bold' })
-  //     .attr({ fill: '#000000', opacity: 0.8, 'text-anchor': 'middle' })
-  //     .move(icon_width / 2 + margin_left, age_image.attr('y') + icon_height + 5)
-  // }
+  // Add Age Icons
+  let icon_height = Math.min(row_height / 2, 112)
+  let icon_width = 112
+  let vertical_spacing = (row_height - icon_height) / 2 - 10
+  let margin_left = 20
+  let image_urls = ['dark_age_de.png', 'feudal_age_de.png', 'castle_age_de.png', 'imperial_age_de.png']
+  let age_names = [
+    data.strings[data.age_names['Dark Age']],
+    data.strings[data.age_names['Feudal Age']],
+    data.strings[data.age_names['Castle Age']],
+    data.strings[data.age_names['Imperial Age']],
+  ]
+  for (let i = 0; i < image_urls.length; i++) {
+    let age_image_group = draw.group().click(hideHelp)
+    let age_image = age_image_group
+      .image('./assets/Ages/' + image_urls[i], icon_width, icon_height)
+      .y(row_height * i + vertical_spacing)
+      .x(margin_left)
+    age_image_group
+      .text(age_names[i])
+      .font({ size: 16, weight: 'bold' })
+      .attr({ fill: '#000000', opacity: 0.8, 'text-anchor': 'middle' })
+      .move(icon_width / 2 + margin_left, age_image.attr('y') + icon_height + 5)
+  }
 
-  // const connectionGroup = draw.group().attr({ id: 'connection_lines' })
-  // for (let connection of connections) {
-  //   let from = connectionpoints.get(connection[0])
-  //   let to = connectionpoints.get(connection[1])
-  //   let intermediate_height = from.y + (tree.element_height * 2) / 3
-  //   connectionGroup
-  //     .polyline([from.x, from.y, from.x, intermediate_height, to.x, intermediate_height, to.x, to.y])
-  //     .attr({ id: `connection_${connection[0]}_${connection[1]}` })
-  //     .addClass('connection')
-  //     .click(hideHelp)
-  // }
+  const connectionGroup = draw.group().attr({ id: 'connection_lines' })
+  for (let connection of connections) {
+    let from = connectionpoints.get(connection[0])
+    let to = connectionpoints.get(connection[1])
+    let intermediate_height = from.y + (tree.element_height * 2) / 3
+    connectionGroup
+      .polyline([from.x, from.y, from.x, intermediate_height, to.x, intermediate_height, to.x, to.y])
+      .attr({ id: `connection_${connection[0]}_${connection[1]}` })
+      .addClass('connection')
+      .click(hideHelp)
+  }
 
-  // for (let lane of tree.lanes) {
-  //   for (let r of Object.keys(lane.rows)) {
-  //     let row = lane.rows[r]
-  //     for (let caret of row) {
-  //       var item = draw.group().attr({ id: caret.id }).addClass('node')
-  //       var rect = item
-  //         .rect(caret.width, caret.height)
-  //         .attr({
-  //           fill: caret.type.colour,
-  //           id: `${caret.id}_bg`,
-  //         })
-  //         .move(caret.x, caret.y)
-  //       let name = formatName(caret.name)
-  //       var text = item
-  //         .text(name.toString())
-  //         .font({ size: 9, weight: 'bold' })
-  //         .attr({ fill: '#ffffff', opacity: 0.95, 'text-anchor': 'middle', id: caret.id + '_text' })
-  //         .move(caret.x + caret.width / 2, caret.y + caret.height / 1.5)
-  //       var image_placeholder = item
-  //         .rect(caret.width * 0.6, caret.height * 0.6)
-  //         .attr({ fill: '#000000', opacity: 0.5, id: caret.id + '_imgph' })
-  //         .move(caret.x + caret.width * 0.2, caret.y)
-  //       let prefix = 'img/'
-  //       var image = item
-  //         .image(prefix + imagePrefix(caret.id) + '.png', caret.width * 0.6, caret.height * 0.6)
-  //         .attr({ id: caret.id + '_img' })
-  //         .move(caret.x + caret.width * 0.2, caret.y)
-  //       var cross = item
-  //         .polygon([1, 0, 3, 2, 5, 0, 6, 1, 4, 3, 6, 5, 5, 6, 3, 4, 1, 6, 0, 5, 2, 3, 0, 1])
-  //         .attr({ fill: '#ff0000', opacity: 0.5, id: caret.id + '_x' })
-  //         .addClass('cross')
-  //         .size(caret.width * 0.6, caret.height * 0.6)
-  //         .move(caret.x + caret.width * 0.2, caret.y)
-  //       var overlaytrigger = item
-  //         .rect(caret.width, caret.height)
-  //         .attr({ id: caret.id + '_overlay' })
-  //         .addClass('node__overlay')
-  //         .move(caret.x, caret.y)
-  //         .data({ type: caret.type.type, caret: caret, name: caret.name, id: caret.id })
-  //         .mouseover(function () {
-  //           highlightPath(caret.id)
-  //         })
-  //         .mouseout(resetHighlightPath)
-  //         .click(function () {
-  //           displayHelp(caret.id)
-  //         })
-  //     }
-  //   }
-  // }
+  for (let lane of tree.lanes) {
+    for (let r of Object.keys(lane.rows)) {
+      let row = lane.rows[r]
+      for (let caret of row) {
+        var item = draw.group().attr({ id: caret.id }).addClass('node')
+        var rect = item
+          .rect(caret.width, caret.height)
+          .attr({
+            fill: caret.type.colour,
+            id: `${caret.id}_bg`,
+          })
+          .move(caret.x, caret.y)
+        let name = formatName(caret.name)
+        var text = item
+          .text(name.toString())
+          .font({ size: 9, weight: 'bold' })
+          .attr({ fill: '#ffffff', opacity: 0.95, 'text-anchor': 'middle', id: caret.id + '_text' })
+          .move(caret.x + caret.width / 2, caret.y + caret.height / 1.5)
+        var image_placeholder = item
+          .rect(caret.width * 0.6, caret.height * 0.6)
+          .attr({ fill: '#000000', opacity: 0.5, id: caret.id + '_imgph' })
+          .move(caret.x + caret.width * 0.2, caret.y)
+        let prefix = './assets/'
+        var image = item
+          .image(prefix + imagePrefix(caret.id) + '.png', caret.width * 0.6, caret.height * 0.6)
+          .attr({ id: caret.id + '_img' })
+          .move(caret.x + caret.width * 0.2, caret.y)
+        var cross = item
+          .polygon([1, 0, 3, 2, 5, 0, 6, 1, 4, 3, 6, 5, 5, 6, 3, 4, 1, 6, 0, 5, 2, 3, 0, 1])
+          .attr({ fill: '#ff0000', opacity: 0.5, id: caret.id + '_x' })
+          .addClass('cross')
+          .size(caret.width * 0.6, caret.height * 0.6)
+          .move(caret.x + caret.width * 0.2, caret.y)
+        var overlaytrigger = item
+          .rect(caret.width, caret.height)
+          .attr({ id: caret.id + '_overlay' })
+          .addClass('node__overlay')
+          .move(caret.x, caret.y)
+          .data({ type: caret.type.type, caret: caret, name: caret.name, id: caret.id })
+          .mouseover(function () {
+            highlightPath(caret.id)
+          })
+          .mouseout(resetHighlightPath)
+          .click(function () {
+            displayHelp(caret.id)
+          })
+      }
+    }
+  }
 
   let civWasLoaded = updateCivselectValue()
   if (!civWasLoaded) {
     loadCiv()
   }
-  // create_colour_key()
+  create_colour_key()
   window.onhashchange = function () {
     updateCivselectValue()
   }
@@ -653,27 +652,35 @@ function cost(cost_object) {
   return value
 }
 
+var visibility = true
+
+function toggleTechVisibility() {
+  document.getElementById('techtree').style.display = visibility ? 'none' : 'inherit'
+  document.getElementById('metainfo').style.display = !visibility ? 'none' : 'inherit'
+  visibility = !visibility
+}
+
 function create_colour_key() {
   let legend = [TYPES.UNIQUEUNIT, TYPES.UNIT, TYPES.BUILDING, TYPES.TECHNOLOGY]
-  let kc = document.getElementById('key__table')
-  let tr = null
-  for (let index in legend) {
-    if (index % 2 === 0) {
-      tr = document.createElement('tr')
-    }
-    let td_color = document.createElement('td')
-    td_color.style.backgroundColor = legend[index]['colour']
-    td_color.style.border = '1px outset #8a5d21'
-    td_color.style.width = '23px'
-    tr.appendChild(td_color)
-    let td_type = document.createElement('td')
-    td_type.innerText = data.strings[data.tech_tree_strings[legend[index]['name']]]
-    tr.appendChild(td_type)
-    if (index % 2 === 1) {
-      kc.appendChild(tr)
-    }
-  }
-  document.getElementById('key__label').innerText = data.strings[data.tech_tree_strings['Key']]
+  // let kc = document.getElementById('key__table')
+  // let tr = null
+  // for (let index in legend) {
+  //   if (index % 2 === 0) {
+  //     tr = document.createElement('tr')
+  //   }
+  //   let td_color = document.createElement('td')
+  //   td_color.style.backgroundColor = legend[index]['colour']
+  //   td_color.style.border = '1px outset #8a5d21'
+  //   td_color.style.width = '23px'
+  //   tr.appendChild(td_color)
+  //   let td_type = document.createElement('td')
+  //   td_type.innerText = data.strings[data.tech_tree_strings[legend[index]['name']]]
+  //   tr.appendChild(td_type)
+  //   if (index % 2 === 1) {
+  //     kc.appendChild(tr)
+  //   }
+  // }
+  // document.getElementById('key__label').innerText = data.strings[data.tech_tree_strings['Key']]
 }
 
 function changeLocale() {
@@ -704,35 +711,44 @@ function fillCivSelector() {
 }
 
 function civ(name) {
-  // let selectedCiv = civs[name]
-  // SVG.select('.cross').each(function () {
-  //     if (SVGObjectIsOpaque(this)) {
-  //         return;
-  //     }
-  //     let {id, type} = parseSVGObjectId(this.id());
-  //     if (id === undefined || type === undefined) {
-  //         return;
-  //     }
-  //     if (type === 'unit') {
-  //         if (selectedCiv.units.includes(id)) {
-  //             return;
-  //         }
-  //     } else if (type === 'building') {
-  //         if (selectedCiv.buildings.includes(id)) {
-  //             return;
-  //         }
-  //     } else if (type === 'tech') {
-  //         if (selectedCiv.techs.includes(id)) {
-  //             return;
-  //         }
-  //     }
-  //     makeSVGObjectOpaque(this);
-  // });
-  // enable(selectedCiv.buildings, [...selectedCiv.units, UNIQUE_UNIT, ELITE_UNIQUE_UNIT], [...selectedCiv.techs, UNIQUE_TECH_1, UNIQUE_TECH_2]);
-  // unique([selectedCiv.unique.castleAgeUniqueUnit,
-  //     selectedCiv.unique.imperialAgeUniqueUnit,
-  //     selectedCiv.unique.castleAgeUniqueTech,
-  //     selectedCiv.unique.imperialAgeUniqueTech], selectedCiv.monkPrefix);
+  let selectedCiv = civs[name]
+  SVG.select('.cross').each(function () {
+    if (SVGObjectIsOpaque(this)) {
+      return
+    }
+    let { id, type } = parseSVGObjectId(this.id())
+    if (id === undefined || type === undefined) {
+      return
+    }
+    if (type === 'unit') {
+      if (selectedCiv.units.includes(id)) {
+        return
+      }
+    } else if (type === 'building') {
+      if (selectedCiv.buildings.includes(id)) {
+        return
+      }
+    } else if (type === 'tech') {
+      if (selectedCiv.techs.includes(id)) {
+        return
+      }
+    }
+    makeSVGObjectOpaque(this)
+  })
+  enable(
+    selectedCiv.buildings,
+    [...selectedCiv.units, UNIQUE_UNIT, ELITE_UNIQUE_UNIT],
+    [...selectedCiv.techs, UNIQUE_TECH_1, UNIQUE_TECH_2]
+  )
+  unique(
+    [
+      selectedCiv.unique.castleAgeUniqueUnit,
+      selectedCiv.unique.imperialAgeUniqueUnit,
+      selectedCiv.unique.castleAgeUniqueTech,
+      selectedCiv.unique.imperialAgeUniqueTech,
+    ],
+    selectedCiv.monkPrefix
+  )
 }
 
 function SVGObjectIsOpaque(svgObj) {
@@ -774,117 +790,33 @@ function main() {
   } catch (e) {
     // pass
   }
-  // fillLocaleSelector(storedLocale);
+  fillLocaleSelector(storedLocale)
 
   // loadJson("assets/data.json", function (response) {
-  data = {
-    age_names: {
-      'Castle Age': '4203',
-      'Dark Age': '4201',
-      'Feudal Age': '4202',
-      'Imperial Age': '4204',
-    },
-    civ_helptexts: {
-      Aztecs: '120164',
-      Berbers: '120176',
-      Britons: '120150',
-      Bulgarians: '120181',
-      Burgundians: '120185',
-      Burmese: '120179',
-      Byzantines: '120156',
-      Celts: '120162',
-      Chinese: '120155',
-      Cumans: '120183',
-      Ethiopians: '120174',
-      Franks: '120151',
-      Goths: '120152',
-      Huns: '120166',
-      Incas: '120170',
-      Indians: '120169',
-      Italians: '120168',
-      Japanese: '120154',
-      Khmer: '120177',
-      Koreans: '120167',
-      Lithuanians: '120184',
-      Magyars: '120171',
-      Malay: '120178',
-      Malians: '120175',
-      Mayans: '120165',
-      Mongols: '120161',
-      Persians: '120157',
-      Portuguese: '120173',
-      Saracens: '120158',
-      Sicilians: '120186',
-      Slavs: '120172',
-      Spanish: '120163',
-      Tatars: '120182',
-      Teutons: '120153',
-      Turks: '120159',
-      Vietnamese: '120180',
-      Vikings: '120160',
-    },
-    civ_names: {
-      Aztecs: '10285',
-      Berbers: '10297',
-      Britons: '10271',
-      Bulgarians: '10302',
-      Burgundians: '10306',
-      Burmese: '10300',
-      Byzantines: '10277',
-      Celts: '10283',
-      Chinese: '10276',
-      Cumans: '10304',
-      Ethiopians: '10295',
-      Franks: '10272',
-      Goths: '10273',
-      Huns: '10287',
-      Incas: '10291',
-      Indians: '10290',
-      Italians: '10289',
-      Japanese: '10275',
-      Khmer: '10298',
-      Koreans: '10288',
-      Lithuanians: '10305',
-      Magyars: '10292',
-      Malay: '10299',
-      Malians: '10296',
-      Mayans: '10286',
-      Mongols: '10282',
-      Persians: '10278',
-      Portuguese: '10294',
-      Saracens: '10279',
-      Sicilians: '10307',
-      Slavs: '10293',
-      Spanish: '10284',
-      Tatars: '10303',
-      Teutons: '10274',
-      Turks: '10280',
-      Vietnamese: '10301',
-      Vikings: '10281',
-    },
-  }
   civs = data.techtrees
   data.strings = strings['ru']
-  // loadLocale(storedLocale);
+  loadLocale(storedLocale)
   // });
 
   document.getElementById('civselect').addEventListener('change', loadCiv)
   document.getElementById('localeselect').addEventListener('change', changeLocale)
+  document.getElementById('civlogo').addEventListener('click', toggleTechVisibility)
 
-  // let doVerticalScroll = true;
-  // const techtreeElement = document.getElementById('techtree');
-  // techtreeElement.addEventListener('wheel', function (e) {
-  //     if (e.deltaX !== 0) {
-  //         doVerticalScroll = false;
-  //     }
-  //     if (doVerticalScroll && techtreeDoesNotHaveScrollbar() && shiftKeyIsNotPressed(e)) {
-  //         if (e.deltaY > 0) {
-  //             techtreeElement.scrollLeft += 150;
-  //         } else if (e.deltaY < 0) {
-  //             techtreeElement.scrollLeft -= 150;
-  //         }
-  //     }
-  // });
+  let doVerticalScroll = true
+  const techtreeElement = document.getElementById('techtree')
+  techtreeElement.addEventListener('wheel', function (e) {
+    if (e.deltaX !== 0) {
+      doVerticalScroll = false
+    }
+    if (doVerticalScroll && techtreeDoesNotHaveScrollbar() && shiftKeyIsNotPressed(e)) {
+      if (e.deltaY > 0) {
+        techtreeElement.scrollLeft += 150
+      } else if (e.deltaY < 0) {
+        techtreeElement.scrollLeft -= 150
+      }
+    }
+  })
+  toggleTechVisibility()
 }
 
 main()

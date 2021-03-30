@@ -172,7 +172,10 @@ a:active {
   flex: 1 0 auto;
   font-size: 12pt;
   max-height: 100%;
-  overflow-y: scroll;
+}
+
+#civinfo svg {
+  overflow: scroll;
 }
 
 #civtitle {
@@ -278,11 +281,4 @@ hr:before {
 .connection.is-highlight {
   stroke: #fff;
   stroke-width: 3px;
-}
-
-@media (max-width: 900px) {
-  #techtree {
-    width: auto;
-    overflow-x: auto;
-  }
 }
